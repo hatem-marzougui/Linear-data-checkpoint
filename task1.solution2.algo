@@ -1,0 +1,42 @@
+ALGORITHM Sum_Distinct
+VAR
+   
+    htab : HASH_TABLE<INTEGER,INTEGER>
+    x,y,i,j : INTEGER ; 
+    set1 : ARRAY_OF_INTEGER[x];
+    set2 : ARRAY_OF_INTEGER[y];
+    sum:=0 ,key:=0 : INTEGER 
+
+BEGIN
+     //read first array and insert it in htab
+    
+    FOR i FROM 0 TO x-1  STEP 1 DO
+        Read(set1[i]); 
+        htab.insert(key,set1[i]);
+        key := key + 1;
+    END_FOR
+
+    //read second array and insert it in htab
+    FOR j FROM 0 TO y-1 STEP 1 DO
+        Read(set2[j]);
+        htab.insert(key,set2[j]);
+        key := key +1;
+    END_FOR
+    
+    //delete repeted elements in htable (their keys will be deleted also)
+    FOR i FROM 0 TO x-1 STEP 1  DO   
+        IF (htab.get(i)=htab.get(i+1)) THEN
+            htab.delete(i); 
+        END_IF   
+    END_FOR
+
+
+//  test keys and calculate the sum of elements in the new htable
+FOR i FROM 0 TO htab.length STEP 1 DO
+     if (htab.lookup(i)= TRUE) THEN
+     sum := sum + htab.get(i)
+END_FOR     
+    
+    Write ("the sum of distinct elements is:", sum );
+
+END
